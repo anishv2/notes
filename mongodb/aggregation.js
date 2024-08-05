@@ -50,4 +50,30 @@ db.students.aggregate([{ $group: {_id: null, count: { $sum: {$size: "$Hobbies" }
  */
 
 
+// find the total numbers and names of students which age is less than 20, greater than equal 20 and greater than equal to 25 by group of ages
+
+db.students.aggregate([
+   {
+      $match: {
+         gender: "male"
+      }
+   },
+   {
+      $bucket: {
+         groupBy: "$age",
+         boundaries: [0,20,25],
+         default: "Group which is greater than 25",
+         output: { 
+            count: {
+               $sum: 1
+            },
+            names: {
+               $push: "$name"
+            }
+
+         }
+      }
+   }
+])
+
 

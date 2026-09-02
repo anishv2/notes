@@ -51,6 +51,7 @@
  // capped collection
 
 // it creates a capped collection for order_logs collection where max and size is user defined, and after inserted 11th document in collection it will delete the first document from collection with maintaning max limit of 10
+// in other words, capped collections automatically overwrite old documents when they reach their size limit
 
  db.createCollection("order_logs", { capped: true, max:10, size: 100000 }) 
 

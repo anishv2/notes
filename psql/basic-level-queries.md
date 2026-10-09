@@ -19,6 +19,9 @@ ___
 ### Basic Queries
 ___
 
+**`SELECT`** used to retrieve data from one or more tables in a database. \
+**`FROM`** used to specify the source table or rowset from which data should be retrieved or manipulated.
+
 **To get all records of table employee without explicitly type any column**
 
 ```
@@ -36,6 +39,9 @@ SELECT * FROM employees;
 -- Example:
 SELECT first_name, email FROM employees;
 ```
+---
+
+**`DISTINCT`** used to retrieve only unique values. 
 
 **To get all distinct first name of employee table**
 
@@ -45,6 +51,9 @@ SELECT first_name, email FROM employees;
 -- Example:
 SELECT DISTINCT first_name FROM employees;
 ```
+---
+
+**`WHERE`** used to filter records based on one or more condition. 
 
 **To get all employees's first name, phone and email whose from Delhi**
 
@@ -61,7 +70,9 @@ SELECT first_name, email FROM employees WHERE city = 'Delhi';
 -- Example:
 SELECT first_name, email FROM employees WHERE employee_id IN (SELECT employee_id FROM salaries WHERE salary < 60000);
 ```
+---
 
+**`ORDER BY`** clause used to sort the results set based on one or more columns.
 
 **To get salaries in acsending (default) order**
 
@@ -71,6 +82,10 @@ SELECT first_name, email FROM employees WHERE employee_id IN (SELECT employee_id
 -- Example:
 SELECT salary FROM salaries ORDER BY salary;
 ```
+---
+
+**`ASC`** clause used to sort the results in ascending order. \
+**`DESC`** clause used to sort the results in descending order.
 
 
 **To get sorted salaries in descending order**
@@ -98,6 +113,12 @@ SELECT salary FROM salaries ORDER BY salary_id, salary;
 SELECT first_name, city FROM employees ORDER BY first_name ASC, city DESC; 
 
 ```
+---
+
+**`%`** represents number of characters. \
+**`_`** represents single character. \
+**`AND`** returns true if two or more conditions are true. \
+**`OR`** returns true if any one condition are true.
 
 
 **To get records of whose from city Delhi and their first name starts with "A"**
@@ -120,6 +141,10 @@ SELECT first_name FROM employees WHERE city = 'Delhi' AND (first_name LIKE 'D%' 
 -- Example:
 SELECT first_name FROM employees WHERE city = 'Delhi' AND (first_name LIKE 'D%' OR first_name LIKE 'A%');
 ```
+---
+
+**`NOT`** not or reverse the result. \
+**`IN`** match any value in a list.
 
 
 **To get records of employees whose not works in departments "Sales" and "Human Resources"**
@@ -130,4 +155,24 @@ SELECT first_name, email FROM employees WHERE department_id NOT IN (SELECT depar
 
 -- Example 2: (Way 2)
 SELECT first_name, email FROM employees e WHERE NOT EXISTS (SELECT 1 FROM departments d WHERE d.department_id = e.department_id AND d.department_name IN ('Sales', 'Human Resources'));
+```
+
+---
+
+**`LIMIT`** limits the number of rows returned. 
+
+**To get 10 records of employees whose first_name starts with A**
+
+```
+SELECT first_name FROM employees WHERE city = 'Delhi' AND (first_name LIKE 'D%' OR first_name LIKE 'A%') LIMIT 10;
+```
+
+---
+
+**`OFFSET`** skips the specific number of rows. 
+
+**To get 10 records of employees whose first_name starts with A and skipping the first 5 records**
+
+```
+SELECT first_name FROM employees WHERE city = 'Delhi' AND (first_name LIKE 'D%' OR first_name LIKE 'A%') LIMIT 10 OFFSET 5;
 ```

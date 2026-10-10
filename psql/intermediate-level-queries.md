@@ -104,9 +104,9 @@ SELECT e.first_name AS Employee, m.first_name AS Manager FROM employees e LEFT J
 
 ### Set operators
 
-**`UNION`** returns unique rows from both queries. Duplicates removed. 
-**`UNION ALL`** Returns all rows from both queries duplicates included. 
-**`INTERSECT`** Returns only common records. 
+**`UNION`** returns unique rows from both queries. Duplicates removed. \
+**`UNION ALL`** Returns all rows from both queries duplicates included. \
+**`INTERSECT`** Returns only common records. \
 **`EXCEPT / MINUS`** Returns records from A that are not in B. 
 
 

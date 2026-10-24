@@ -39,7 +39,7 @@ SELECT DISTINCT MIN(salary), MAX(salary) FROM salaries;
 ---
 
 **`GROUP BY`** It groups rows based on one or more columns and is usually used with aggregate functions. \
-**`HAVING`** Filter the groups formed by `GROUP BY`. It works on aggregate values and cannot be used without `GROUP BY`.
+**`HAVING`** Filter the groups formed by `GROUP BY`. It works on aggregate values and cannot be used without `GROUP BY`. 
 
 **To get employee's duplicate first name** 
 
@@ -71,7 +71,7 @@ SELECT department_name, SUM(salary) AS TotalSalary FROM departments d JOIN emplo
 **`JOIN`** are used to combine rows from two or more tables based on related column between them. \
 
 **Types of Joins** 
-
+ 
 **`INNER JOIN`** returns only matching rows from both tables. \
 **`LEFT JOIN`** returns all rows from left table and matched rows from right table. \
 **`RIGHT JOIN`** returns all rows from right table and matched rows from left table. \
@@ -130,8 +130,97 @@ SELECT first_name FROM employees UNION ALL SELECT first_name FROM employees;
 SELECT first_name FROM employees INTERSECT SELECT first_name FROM employees;
 ```
 
-**To get common employees record whose are manager as well**
+**To get common employees record who are manager as well**
 
 ```
 SELECT employee_id FROM employees EXCEPT SELECT manager_id FROM employees;
 ```
+
+---
+
+### Subqueries
+
+**Single Row Subquery**
+
+Returns exactly one row (one value). Use with =, <, >, <=, >= operators
+
+**To get salaries greater than average salary**
+
+```
+SELECT salary FROM salaries WHERE salary > (SELECT AVG(salary) FROM salaries);
+```
+
+**Multiple Row Subquery**
+
+Returns multiple rows (multiple value). Use with IN, NOT, IN, ANY, ALL operators
+
+
+**To get employees first names who departments in Delhi**
+
+```
+SELECT first_name FROM employees WHERE department_id IN (SELECT department_id FROM departments WHERE location = 'Delhi')
+```
+
+**Correlated Subquery**
+
+The subquery refers to the column from the outer query. It is executed for each row of the outer query.
+
+**To get employees who earn more than the average salary in their own department**
+
+
+```
+SELECT e1.first_name, s.salary FROM employees e1 JOIN salaries s ON e1.employee_id = s.employee_id WHERE s.salary > (SELECT AVG(s2.salary) FROM employees e2 JOIN salaries s2 ON e2.employee_id = s2.employee_id WHERE e2.department_id = e1.department_id);
+```
+
+**EXISTs & NOT EXISTS**
+
+Often better than IN/NOT IN, especially with NULLs.
+
+
+**Employees for whom a matching department exists**
+
+```
+SELECT first_name FROM employees e WHERE EXISTS (SELECT 1 FROM departments d WHERE d.department_id = e.department_id);
+```
+
+**Employees who do not have a matching departmentt.**
+
+```
+SELECT first_name FROM employees e WHERE NOT EXISTS (SELECT 1 FROM departments d WHERE d.department_id = e.department_id);
+```
+
+
+
+### SQL Functions
+
+SQL functions are pre-defined operations that perform calculations and return a single value
+
+
+**String functions**  Used to manipulate and extract data from strings
+ 
+**`UPPER(str)`** Converts string into uppercase. 
+
+```
+SELECT UPPER('departments location') AS Department_Location; 
+```
+
+**`LOWER(str)`** Converts string into lowercase. 
+
+```
+SELECT LOWER('DEPARTMENT') AS Department; 
+```
+
+**`LENGTH(str)`** Returns the number of characters in given string. 
+
+```
+SELECT LENGTH('departments location') AS Characters_Length; 
+```
+
+**`SUBSTRING(str, start, len)`** Extracts part of a string with pass `str`,`start` and `len`. 
+
+```
+SELECT SUBSTRING('departments location', 5, 8) AS Characters_Length; 
+```
+
+
+

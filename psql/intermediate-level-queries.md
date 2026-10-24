@@ -219,7 +219,7 @@ SELECT LENGTH('departments location') AS Characters_Length;
 **`SUBSTRING(str, start, len)`** Extracts part of a string with pass `str`,`start` and `len`. 
 
 ```
-SELECT SUBSTRING('departments location', 5, 8) AS Characters_Length; 
+SELECT SUBSTRING('departments location', 5, 8) AS Sub_Text; 
 ```
 
 

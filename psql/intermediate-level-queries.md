@@ -152,10 +152,10 @@ SELECT salary FROM salaries WHERE salary > (SELECT AVG(salary) FROM salaries);
 
 **Multiple Row Subquery**
 
-Returns multiple rows (multiple value). Use with IN, NOT, IN, ANY, ALL operators
+Returns multiple rows (multiple value). Use with IN, NOT IN, ANY, ALL operators
 
 
-**To get employees first names who departments in Delhi**
+**To get employees first names whose departments in Delhi**
 
 ```
 SELECT first_name FROM employees WHERE department_id IN (SELECT department_id FROM departments WHERE location = 'Delhi')
@@ -220,6 +220,37 @@ SELECT LENGTH('departments location') AS Characters_Length;
 
 ```
 SELECT SUBSTRING('departments location', 5, 8) AS Sub_Text; 
+```
+
+
+**`CEIL(number)`** Returns the smallest integer that greather than or equal to the given number
+
+```
+SELECT CEIL(30.43) AS CeilValue;
+```
+
+**`ROUND(number, precision)`** Rounds the number to specified decimal places
+
+```
+SELECT ROUND(40.57309, 2) AS Rounded;
+```
+
+**`NOW`** Returns current date and time
+
+```
+SELECT NOW() AS CurrentDateTime;
+```
+
+**`CURRENT_DATE`** Returns current date in (YYYY-MM-DD) format
+
+```
+SELECT CURRENT_DATE() As CurrentDate;
+```
+
+**`DATE_ADD(date, INTERVAL value unit)`** Returns next date after adding date and interval to date
+
+```
+SELECT DATE_ADD('2026-10-26', INTERVAL 7 DAY) AS NextWeek;
 ```
 
 

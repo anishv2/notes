@@ -189,7 +189,7 @@ SELECT first_name FROM employees e WHERE EXISTS (SELECT 1 FROM departments d WHE
 SELECT first_name FROM employees e WHERE NOT EXISTS (SELECT 1 FROM departments d WHERE d.department_id = e.department_id);
 ```
 
-
+---
 
 ### SQL Functions
 
@@ -253,5 +253,95 @@ SELECT CURRENT_DATE() As CurrentDate;
 SELECT DATE_ADD('2026-10-26', INTERVAL 7 DAY) AS NextWeek;
 ```
 
+---
+
+### Case Statment
+
+CASE statement is used to perform conditional logic and return values based on conditions.
+
+**`CASE WHEN (Simple case)`** 
+
+Compares an expression with multiple values
+
+```
+SELECT first_name, last_name, email,
+    CASE department_name
+        WHEN 'Engineering' THEN 'Engineering'
+        WHEN 'Human Resources' THEN 'HR'
+        WHEN 'Marketing' THEN 'Marketing'
+        WHEN 'Product' THEN 'Product'
+        WHEN 'Finance' THEN 'Finance'
+        ELSE 'OTHER'
+    END AS DeptCategory
+FROM employees e INNER JOIN departments d ON d.department_id = e.department_id;
+```
+
+
+**`CASE WHEN (Search case)`** 
+
+Evaluate boolean conditions
+
+```
+SELECT salary,
+    CASE 
+        WHEN salary >= 100000 THEN 'Very High'
+        WHEN salary BETWEEN 70000 AND 99999 THEN 'High'
+        WHEN salary BETWEEN 40000 AND 69999 THEN 'Medium'
+        ELSE 'Low'
+    END AS SalaryLevel
+FROM salaries;
+```
+
+**`IFNULL() / COALESCE()`** 
+
+Used to handle NULL values and provide a default value
+
+`IFNULL (MySQL)`
+
+```
+SELECT first_name, IFNULL(Email, 'No Email') AS Email FROM employees;
+```
+
+
+`COALESCE (ANSI SQL)`
+
+```
+SELECT name, COALESCE(email, phone, 'No Contact') AS Contact FROM employees;
+```
+___
+ℹ️ **NOTE:**
+* Use COALESCE when you have multiple columns to check for null
+* Use ISNULL/IS NOT NULL instead of = NULL / <> NULL
+___
+
+**`NULL Handling`**
+
+- NULL means unknown or missing value
+- Comparision with NULL using = or <> return UNKNOWN
+
+```
+SELECT * FROM employees WHERE email IS NULL;
+```
+
+**Conditional Logic in Queries**
+
+Use CASE to apply conditions in filtering, sorting, grouping or calculations.
+
+```
+SELECT first_name, last_name, salary,
+    CASE 
+        WHEN salary >= 70000 THEN 'HIGH'
+        WHEN salary >= 50000 THEN 'MEDIUM'
+        ELSE 'LOW'
+    END AS SalaryLevel
+FROM employees e INNER JOIN salaries s ON s.employee_id = e.employee_id 
+WHERE e.city = 'Delhi'
+ORDER BY salary DESC;
+```
+
+___
+ℹ️ **NOTE:**
+* CASE can be used in SELECT, WHERE, ORDER BY, GROUP BY, HAVING clauses
+___
 
 
